@@ -1,29 +1,27 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
+                              render)
 
 from .forms import DynamicInputs
 from .models import DynamicInputsDatas
+from .utils import process_form_data, save_to_db
 
 
 def dynamic_inputs(request):
     template = 'dynamic_inputs/add.html'
     form = DynamicInputs()
     if request.method == 'POST':
-        if 'submit' in request.POST:
-            form = DynamicInputs(request.POST)
-            if form.is_valid():
-                inst = DynamicInputsDatas(data=form.cleaned_data)
-                inst.save()
-                return redirect(reverse('list'))
-        if 'add_input' in request.POST:
-            form = DynamicInputs(request.POST, add_new_input=True)
+        form = DynamicInputs(request.POST)
+        if form.is_valid():
+            data = process_form_data(request)
+            save_to_db(data)
+            return redirect('list')
     context = {'form': form, }
     return render(request, template, context=context)
 
 def data_list(request):
     template = 'dynamic_inputs/list.html'
-    datas = DynamicInputsDatas.objects.all()
+    datas = get_list_or_404(DynamicInputsDatas)
     context = {
         'datas': datas,
     }

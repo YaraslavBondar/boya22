@@ -3,13 +3,50 @@
 {% block content %}
 <div class="container">
     <h1>Enter your data:</h1>
+    <div class="nav mb-3">
+        <button name="add_new" class="btn btn-primary" onclick="add_extra_field()">Добавить</button>
+    </div>
     {% if form %}
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" name="add_input" class="btn btn-primary">Добавить поле</button>
+        <div class="form-group" id="dynamic-inputs">
+            <div class="mb-3">
+                {{ form }}
+            </div>
+        </div>
         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
     </form>
     {% endif %}
 </div>
+
+{% block extra_js %}
+<script>
+count = 1
+function add_extra_field() {
+    let name = 'name'
+    let type = 'text'
+    let label = document.createElement('label')
+    let input = document.createElement('input')
+    let extra_element = document.createElement('div')
+
+    extra_element.classList.add('mb-3')
+
+    label.setAttribute('for', 'id_' + name + count)
+    label.innerHTML = name + count + ':'
+
+    input.id = 'id_' + name + count
+    input.type = type
+    input.name = name + count
+    input.setAttribute('required', '')
+
+    extra_element.appendChild(label)
+    extra_element.appendChild(input)
+
+    document.getElementById('dynamic-inputs').appendChild(extra_element)
+
+    count ++
+}
+</script>
+{% endblock extra_js %}
+
 {% endblock content %}
