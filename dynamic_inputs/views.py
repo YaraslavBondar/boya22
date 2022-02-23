@@ -1,3 +1,4 @@
+import json
 from django.http import JsonResponse
 from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
@@ -29,5 +30,6 @@ def data_list(request):
 
 
 def concrete_data(request, id: int):
-    data = get_object_or_404(DynamicInputsDatas, id=id)
-    return JsonResponse(data.data)
+    obj = get_object_or_404(DynamicInputsDatas, id=id)
+    json_data = json.loads(obj.data)
+    return JsonResponse(json_data)
