@@ -1,5 +1,7 @@
+import json
 from .models import DynamicInputsDatas
 
 def save_to_db(data: dict):
-    inst = DynamicInputsDatas(data=data)
+    json_data = json.dumps(data)
+    inst = DynamicInputsDatas(data=json_data)
     inst.save()
