@@ -1,9 +1,11 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
+                              render)
 from django.urls import reverse
 
 from .forms import DynamicInputs
 from .models import DynamicInputsDatas
+from .utils import save_to_db
 
 
 def dynamic_inputs(request):
@@ -13,8 +15,7 @@ def dynamic_inputs(request):
         if 'submit' in request.POST:
             form = DynamicInputs(request.POST)
             if form.is_valid():
-                inst = DynamicInputsDatas(data=form.cleaned_data)
-                inst.save()
+                save_to_db(form.cleaned_data)
                 return redirect(reverse('list'))
         if 'add_input' in request.POST:
             form = DynamicInputs(request.POST, add_new_input=True)
@@ -23,7 +24,7 @@ def dynamic_inputs(request):
 
 def data_list(request):
     template = 'dynamic_inputs/list.html'
-    datas = DynamicInputsDatas.objects.all()
+    datas = get_list_or_404(DynamicInputsDatas)
     context = {
         'datas': datas,
     }
