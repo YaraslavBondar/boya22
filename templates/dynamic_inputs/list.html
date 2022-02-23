@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'add' %}">Добавить</a>
+        </li>
+      </ul>
+    <div class="list-group">
+        {% for item in datas %}
+        <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action">{{ item.id }}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

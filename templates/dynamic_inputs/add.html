@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Enter your data:</h1>
+    {% if form %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="add_input" class="btn btn-primary">Добавить поле</button>
+        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock content %}
