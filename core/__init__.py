@@ -1,13 +1,13 @@
 from flask import Flask
+from core.db import db, migrate
 
 
 def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
 
-    from core.db import db
     db.init_app(app)
-
+    migrate.init_app(app, db)
 
     with app.app_context():
         from core import views
