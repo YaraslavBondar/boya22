@@ -7,6 +7,4 @@ dynamic_inputs = Blueprint(
     url_prefix='/dynamic-inputs'
 )
 
-@dynamic_inputs.route('/main/')
-def main():
-    return '<h2>Hello from dynamic-inputs blueprint!</h2>'
+from dynamic_inputs.views import *
