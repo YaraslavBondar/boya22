@@ -1,0 +1,42 @@
+{% extends "dynamic_inputs/base.jinja" %}
+{% block content %}
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div class="form-group" id="dynamic_inputs">
+            {{ form.name(class_='form-control') }}
+        </div>
+        <button type="submit" name="submit" class="btn btn-primary">Save</button>
+    </form>
+    <button id="btn_clone" class="btn btn-secondary">Clone</button>
+{% endblock content %}
+{% block additional_js %}
+    <script>
+        $("#btn_clone").click(() => {
+            let $last_label = $('label[for^="name-"]:last');
+            let $last_input = $('input[id^="name-"]:last');
+            let num = parseInt( $last_input.prop("id").match(/\d+/g), 10 ) + 1;
+            let $label = $last_label.clone()
+            let $input = $last_input.clone()
+            $label.prop('for', 'name-'+num);
+            $label.html('name '+num);
+            $input.val(null);
+            $input.prop('id', 'name-'+num);
+            $input.prop('name', 'name-'+num);
+
+            let $li = $("<li></li>");
+            $li.append($label)
+            $li.append($input)
+
+            $("ul li:last").after($li)
+        });
+    </script>
+{% endblock additional_js %}
+<div class="mb-3" id="name_group0">
+    <label class="form-label" for="name">name</label>
+    <input class="form-control"
+           id="name"
+           name="name"
+           required=""
+           type="text"
+           value="asdasdasda">
+</div>

@@ -2,7 +2,8 @@ from core.db import db
 from sqlalchemy.dialects.postgresql import JSONB
 
 
-class FormData(db.Model):
+class DynamicEntry(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(JSONB)
+    json = db.Column(JSONB)
+
