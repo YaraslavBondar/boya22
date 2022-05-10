@@ -9,6 +9,8 @@ def create_app(config):
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from dynamic_inputs.models import DynamicEntry
+
     with app.app_context():
         from core import views
         from dynamic_inputs import dynamic_inputs
