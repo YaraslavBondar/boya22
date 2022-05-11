@@ -1,13 +1,13 @@
 {% extends "dynamic_inputs/base.jinja" %}
 {% block content %}
-    <form method="POST">
+    <form method="POST" class="py-2">
         {{ form.csrf_token }}
         <div class="form-group">
             {{ form.name }}
         </div>
+        <button type="button" id="btn_clone" class="btn btn-secondary">Clone</button>
         <button type="submit" name="submit" class="btn btn-primary">Save</button>
     </form>
-    <button id="btn_clone" class="btn btn-secondary">Clone</button>
 {% endblock content %}
 {% block additional_js %}
     <script>
@@ -18,7 +18,7 @@
             let $label = $last_label.clone()
             let $input = $last_input.clone()
             $label.prop('for', 'name-'+num);
-            $label.html('name '+num);
+            $label.html('name '+num+' ');
             $input.val(null);
             $input.prop('id', 'name-'+num);
             $input.prop('name', 'name-'+num);

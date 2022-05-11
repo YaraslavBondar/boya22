@@ -6,4 +6,6 @@
                class="list-group-item list-group-item-action">{{ entry.id }}</a>
         {% endfor %}
     </div>
+    <hr class="my-4">
+    <a href="{{ url_for('dynamic_inputs.add') }}" class="btn btn-primary">Add new</a>
 {% endblock content %}
