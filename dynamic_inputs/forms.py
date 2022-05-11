@@ -5,4 +5,7 @@ from wtforms.validators import DataRequired
 
 class DynamicForm(FlaskForm):
 
-    name = FieldList(StringField('name', validators=[DataRequired()]), min_entries=1)
+    name = FieldList(
+        StringField('name', validators=[DataRequired()]),
+        min_entries=1
+    )

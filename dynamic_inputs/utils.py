@@ -15,7 +15,7 @@ def prepare_data(form_data: dict):
                 tmp[key+str(num)*(num!=0)] = item
         else:
             tmp[key] = value
-    return tmp
+    return json.dumps(tmp)
 
 
 def save_to_db(data):

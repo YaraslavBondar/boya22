@@ -1,3 +1,5 @@
+import json
+
 from flask import jsonify, redirect, render_template, url_for
 
 from dynamic_inputs import dynamic_inputs
@@ -23,7 +25,7 @@ def add():
 @dynamic_inputs.route('/detail/<int:id>', methods=['GET'])
 def detail(id):
     entry = get_from_db(id)
-    return jsonify(entry.json)
+    return jsonify(json.loads(entry.json))
 
 
 @dynamic_inputs.route('/list/', methods=['GET'])
